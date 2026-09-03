@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+.DS_Store
+
+# Trained artifacts and generated outputs are reproducible via
+# `python train.py && python simulate.py` -- keep the repo lean.
+# Comment these out if you'd rather commit the artifacts directly.
+models/*.joblib
+outputs/*.csv
+outputs/*.json
