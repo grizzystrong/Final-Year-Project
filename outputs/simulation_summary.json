@@ -1,0 +1,28 @@
+{
+  "total_events": 7740,
+  "devices_simulated": 12,
+  "devices_ever_quarantined": 12,
+  "policy_action_counts": {
+    "STEP_UP_VERIFICATION": 5020,
+    "ALLOW": 1843,
+    "RESTRICT": 594,
+    "QUARANTINE": 283
+  },
+  "avg_trust_score_final": {
+    "babymonitor-01": 80.99,
+    "cam-01": 72.87,
+    "cam-02": 75.23,
+    "doorbell-01": 82.82,
+    "hub-01": 28.02,
+    "lock-01": 89.92,
+    "plug-01": 83.86,
+    "plug-02": 85.72,
+    "sensor-01": 80.69,
+    "speaker-01": 76.53,
+    "thermostat-01": 60.52,
+    "tv-01": 91.24
+  },
+  "mean_own_events_to_quarantine_after_first_attack": 3.82,
+  "benign_traffic_over_restricted_rate": 0.0785,
+  "final_global_threat_level": 0.0946
+}
