@@ -5,7 +5,8 @@ __pycache__/
 venv/
 .DS_Store
 
-# Trained artifacts and generated outputs are reproducible via
-# `python train.py && python simulate.py` -- keep the repo lean.
-# Comment these out if you'd rather commit the artifacts directly.
-
+# NOTE: models/ and outputs/ are intentionally COMMITTED this time (not
+# gitignored) so the dashboard works immediately after cloning/deploying,
+# with no manual .gitignore editing required. The dashboard also
+# self-heals (trains+simulates automatically) if they're ever missing, so
+# nothing breaks even if you delete them.
