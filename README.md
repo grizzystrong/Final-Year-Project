@@ -1,4 +1,44 @@
-# Adaptive Zero Trust Framework for Intelligent Intrusion Prevention in IoT Networks (v2)
+# Adaptive Zero Trust Framework for Intelligent Intrusion Prevention in IoT Networks (v3)
+
+**Live website:** `docs/index.html` (static, deployable on GitHub Pages) &nbsp;|&nbsp; Streamlit dashboard: `dashboard/app.py`
+
+## What's new in v3
+
+Trust is now computed from **four independent factors**, fused with a weighted geometric mean so one failing factor cannot be averaged away:
+
+| Factor | What it measures | Weight |
+|---|---|---|
+| Identity confidence | Credential age, auth-failure and privilege signals, traffic fingerprint vs. device type, step-up challenge results | 18% |
+| Real-time behavior / anomaly | Ensemble attack probability, IsolationForest anomaly score, deviation from the device's own request-rate baseline | 47% |
+| Historical reputation | Slow-moving record of past conduct, reduced by earlier incidents | 17% |
+| Contextual risk | Time of day, service/protocol risk, network exposure, network-wide threat level | 18% |
+
+- Step-up verification is now a real mechanism: capable devices are challenged, and the result feeds back into identity confidence.
+- A professional static website (white background, orange typography) with an interactive fleet explorer and per-factor breakdown. It needs no server, so it never goes to sleep.
+- Results (this run): ~91.6% ensemble accuracy, 0.992 ROC-AUC, all 12 devices quarantined during their campaign after ~5.3 of their own malicious events on average, ~1.7% of clean traffic wrongly restricted.
+
+
+## User accounts, Google login and per-user fleets
+
+`docs/app.html` is a signed-in workspace. Each user gets a **designated network zone** (`10.<zone>.0.0/24`) and stable **slots** for their devices. Scan the network once, add devices to your fleet, and they (plus their trust state and history) are saved to your account, so nothing needs re-scanning after the next login.
+
+- Auth: Google sign-in through Supabase. Data: Postgres tables `profiles`, `devices`, `device_state`, `trust_history`, protected by row-level security so users only ever see their own rows (`supabase/schema.sql`).
+- The trust and policy logic runs in the browser (`docs/engine.js`, a port of `src/trust_engine.py`), replaying scored events exported by the Python pipeline (`docs/events.js`).
+- **Setup takes about 15 minutes: see `SETUP.md`.** Until Supabase keys are added to `docs/config.js`, the app runs in demo mode with two fake users stored in the browser.
+
+## Deploy the website (GitHub Pages)
+
+1. Push this repo to GitHub.
+2. Repo **Settings → Pages → Build and deployment → Deploy from a branch**.
+3. Choose branch `master` and folder `/docs`, then Save.
+4. Your site appears at `https://<username>.github.io/<repo-name>/` after about a minute.
+
+Regenerate the site data after changing the engine: `python train.py && python simulate.py` (writes `docs/data.js`).
+
+> Honesty notes: step-up challenge outcomes are part of the *simulated environment* (legitimate devices usually pass, attackers usually fail); the trust engine never sees ground-truth labels. Request-rate and payload features are synthetic, as described below.
+
+---
+## Earlier version notes (v2)
 
 A final-year project prototype combining an ensemble ML intrusion detection
 engine with continuous, Zero-Trust-style trust scoring and an adaptive
@@ -32,7 +72,7 @@ flowchart LR
   traffic as a known attack pattern — a lightweight UEBA-style check. The
   baseline is only updated during calm periods, so an ongoing attack can't
   poison a device's definition of "normal."
-- **Self-healing dashboard**: if the trained model / simulation results are
+- **Self-healing Streamlit dashboard**: if the trained model / simulation results are
   ever missing (fresh clone, a cloud deploy where they weren't committed),
   the dashboard trains and simulates automatically on first load (~30s)
   instead of showing an error. Verified end-to-end with Streamlit's

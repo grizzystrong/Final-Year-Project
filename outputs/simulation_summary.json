@@ -3,26 +3,36 @@
   "devices_simulated": 12,
   "devices_ever_quarantined": 12,
   "policy_action_counts": {
-    "STEP_UP_VERIFICATION": 6202,
-    "ALLOW": 1026,
-    "QUARANTINE": 288,
-    "RESTRICT": 224
+    "STEP_UP_VERIFICATION": 4266,
+    "ALLOW": 3065,
+    "RESTRICT": 213,
+    "QUARANTINE": 196
   },
   "avg_trust_score_final": {
-    "babymonitor-01": 70.6,
-    "cam-01": 79.37,
-    "cam-02": 77.94,
-    "doorbell-01": 86.0,
-    "hub-01": 51.51,
-    "lock-01": 83.35,
-    "plug-01": 79.33,
-    "plug-02": 85.74,
-    "sensor-01": 73.78,
-    "speaker-01": 74.91,
-    "thermostat-01": 69.26,
-    "tv-01": 78.76
+    "babymonitor-01": 86.68,
+    "cam-01": 82.24,
+    "cam-02": 83.67,
+    "doorbell-01": 88.62,
+    "hub-01": 71.16,
+    "lock-01": 90.93,
+    "plug-01": 85.41,
+    "plug-02": 86.13,
+    "sensor-01": 83.14,
+    "speaker-01": 83.87,
+    "thermostat-01": 78.97,
+    "tv-01": 86.43
   },
-  "mean_own_events_to_quarantine_after_first_attack": 3.5,
-  "benign_traffic_over_restricted_rate": 0.029,
-  "final_global_threat_level": 0.1172
+  "mean_own_events_to_quarantine_after_first_attack": 5.33,
+  "benign_traffic_over_restricted_rate": 0.0168,
+  "final_global_threat_level": 0.085,
+  "step_up_challenges": {
+    "issued": 631,
+    "passed": 598
+  },
+  "trust_factor_weights": {
+    "identity": 0.18,
+    "behavior": 0.47,
+    "reputation": 0.17,
+    "context": 0.18
+  }
 }

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My fleet · ZT-IoT</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23EA580C'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--panel:#FFF7ED;--line:#FED7AA;--body:#7C2D12;--head:#C2410C;--accent:#EA580C;--soft:#FFEDD5;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--body);font:400 15px/1.55 Inter,system-ui,sans-serif}
+h1,h2,h3{color:var(--head);margin:0;letter-spacing:-.02em;line-height:1.2}a{color:var(--head)}
+header{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.95);border-bottom:1px solid var(--line)}
+header .in{max-width:1180px;margin:0 auto;padding:0 20px;height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-weight:700;color:var(--head);text-decoration:none;display:flex;gap:10px;align-items:center}.brand i{width:22px;height:22px;border-radius:6px;background:var(--accent)}
+.me{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:500}.me img,.av{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700;object-fit:cover}
+main{max-width:1180px;margin:0 auto;padding:28px 20px 80px}
+.btn{background:var(--accent);color:#fff;border:0;border-radius:9px;padding:10px 18px;font:600 14px Inter,sans-serif;cursor:pointer}.btn:hover{background:var(--head)}.btn:disabled{opacity:.5;cursor:default}
+.btn.o{background:#fff;color:var(--head);border:1px solid var(--accent)}.btn.o:hover{background:var(--soft)}.btn.s{padding:6px 12px;font-size:12px}
+.gate{max-width:440px;margin:90px auto;text-align:center;border:1px solid var(--line);border-radius:18px;padding:40px 32px;background:linear-gradient(180deg,#fff,var(--panel))}
+.gate h1{font-size:28px;margin-bottom:10px}.gate p{margin:0 0 22px}.gate .btn{width:100%;margin:5px 0}.demo{font-size:12px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:22px}.top h1{font-size:28px}.top p{margin:6px 0 0}
+.tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.saved{font:500 12px var(--mono)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}.stat{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--panel)}
+.stat b{display:block;font-size:26px;color:var(--accent);letter-spacing:-.03em}.stat span{font-size:12px;font-weight:500}
+.layout{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
+.card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px}
+.dev{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;cursor:pointer;background:#fff}.dev:hover{border-color:var(--accent)}.dev.on{border-color:var(--accent);background:var(--panel);box-shadow:0 0 0 2px var(--soft)}
+.dev .r{display:flex;justify-content:space-between;align-items:center}.dev b{color:var(--head);font-size:14px}.dev small{font:500 11px var(--mono)}.dev .t{font-size:24px;font-weight:700;color:var(--accent);letter-spacing:-.03em}
+.bar{height:6px;border-radius:3px;background:var(--soft);overflow:hidden}.bar i{display:block;height:100%}
+.chipa{display:inline-block;color:#fff;font:600 11px var(--mono);padding:3px 8px;border-radius:5px}
+.empty{text-align:center;padding:50px 20px;border:1px dashed var(--accent);border-radius:14px}.empty h3{margin-bottom:8px}
+svg{display:block;width:100%;height:auto}svg text{font:500 10px Inter,sans-serif;fill:#9A3412}
+.f{margin:10px 0}.f div{display:flex;justify-content:space-between;font-size:13px;font-weight:500}.f .bar{margin-top:4px}
+.log{font:500 12px var(--mono);max-height:170px;overflow:auto;margin-top:10px}.log div{padding:5px 0;border-bottom:1px solid var(--soft)}
+.modal{position:fixed;inset:0;background:rgba(124,45,18,.35);display:grid;place-items:center;z-index:10;padding:20px}.modal .box{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:26px;max-height:90vh;overflow:auto}
+.found{display:flex;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--soft)}.found input{accent-color:var(--accent);width:18px;height:18px}
+.row2{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
+</style></head>
+<body>
+<header><div class="in"><a class="brand" href="index.html"><i></i>ZT-IoT</a><div class="me" id="me"></div></div></header>
+<main id="main"></main>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="events.js"></script><script src="engine.js"></script><script src="api.js"></script>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const AC={ALLOW:"#15803D",STEP_UP_VERIFICATION:"#1D4ED8",RESTRICT:"#A16207",QUARANTINE:"#BE123C"},AN={ALLOW:"ALLOW",STEP_UP_VERIFICATION:"STEP-UP",RESTRICT:"RESTRICT",QUARANTINE:"QUARANTINE"};
+const FAC=[["identity","Identity confidence","#7C3AED"],["behavior","Behavior / anomaly","#0D9488"],["reputation","Historical reputation","#64748B"],["context","Contextual safety","#A16207"]];
+let user,devices=[],states={},hist={},last={},net={threat:0},sel=null,timer=null,attackLeft={},pend={},lastCh={},buf=[],tick=0,log=[],savedAt=null;
+const ip=d=>`10.${user.zone}.0.${d.slot+10}`,rnd=n=>Math.floor(Math.random()*n),pick=a=>a[rnd(a.length)];
+
+async function boot(){
+ user=await API.user();
+ if(!user){gate();return}
+ $("#me").innerHTML=`${user.avatar?`<img src="${esc(user.avatar)}" alt="">`:`<div class="av">${esc(user.name[0]).toUpperCase()}</div>`}<span>${esc(user.name)}</span><button class="btn o s" id="out">Sign out</button>`;
+ $("#out").onclick=async()=>{await flush();API.signOut()};
+ devices=await API.devices();states=await API.states();net.threat=await API.threat();
+ devices.forEach(d=>{if(!states[d.id])states[d.id]=newState(d);last[d.id]=null});
+ if(devices.length){sel=devices[0].id;await loadHist(sel)}
+ render();
+}
+function gate(){
+ $("#main").innerHTML=`<div class="gate"><h1>Sign in to your fleet</h1><p>Your devices, their trust history and your designated network zone are saved to your account, so they are waiting for you next time.</p>
+ ${API.mode==="supabase"?`<button class="btn" id="g">Continue with Google</button>`:`<button class="btn" data-u="demo1">Continue as Demo User 1</button><button class="btn o" data-u="demo2">Continue as Demo User 2</button>
+ <div class="demo"><b>Demo mode:</b> no backend is configured yet, so data stays in this browser. Google sign-in switches on once Supabase keys are added (see SETUP.md).</div>`}</div>`;
+ $("#main").onclick=e=>{const u=e.target.dataset.u;if(u)API.signIn(u);if(e.target.id==="g")API.signIn()};
+}
+async function loadHist(id){if(!hist[id])hist[id]=(await API.history(id)).map(h=>({trust:h.trust,action:h.action}))}
+const selDev=()=>devices.find(d=>d.id===sel);
+
+function render(){
+ const m=$("#main");if(!m)return;
+ const n=devices.length,q=devices.filter(d=>states[d.id].action==="QUARANTINE").length,avg=n?devices.reduce((a,d)=>a+states[d.id].trust,0)/n:0;
+ m.innerHTML=`<div class="top"><div><h1>${n?`Welcome back, ${esc(user.name.split(" ")[0])}`:`Welcome, ${esc(user.name.split(" ")[0])}`}</h1>
+ <p>${n?`Your ${n} saved device${n>1?"s were":" was"} restored. No re-scan needed.`:"Scan your network to discover devices, then add them to your fleet."}</p></div>
+ <div class="tools"><span class="saved" id="saved">${savedAt?"Saved · "+savedAt:""}</span><button class="btn o" id="scan">Scan network</button><button class="btn" id="mon" ${n?"":"disabled"}>${timer?"❚❚ Pause monitoring":"▶ Start monitoring"}</button></div></div>
+ <div class="stats"><div class="stat"><b>10.${user.zone}.0.0/24</b><span>Your designated zone</span></div><div class="stat"><b>${n}</b><span>Devices in fleet</span></div><div class="stat"><b>${n?avg.toFixed(0):"–"}</b><span>Average trust</span></div><div class="stat"><b>${q}</b><span>Quarantined now</span></div></div>
+ ${n?`<div class="layout"><div id="fleet"></div><div class="card" id="detail"></div></div>`:`<div class="empty"><h3>No devices yet</h3><p>Run a network scan to find devices in your zone.</p></div>`}`;
+ $("#scan").onclick=scan;const mb=$("#mon");if(mb)mb.onclick=toggle;
+ if(n){paintFleet();paintDetail()}
+}
+function paintFleet(){
+ $("#fleet").innerHTML=devices.map(d=>{const s=states[d.id],c=AC[s.action];return `<div class="dev ${d.id===sel?"on":""}" data-id="${d.id}"><div class="r"><div><b>${esc(d.name)}</b><br><small>${ip(d)} · ${esc(CATALOG[d.archetype].label)}</small></div><div class="t">${s.trust.toFixed(0)}</div></div>
+ <div class="bar" style="margin:8px 0"><i style="width:${s.trust}%;background:${c}"></i></div><span class="chipa" style="background:${c}">${AN[s.action]}</span></div>`}).join("");
+ $("#fleet").onclick=async e=>{const el=e.target.closest(".dev");if(el){sel=el.dataset.id;await loadHist(sel);paintFleet();paintDetail()}};
+}
+function paintDetail(){
+ const d=selDev();if(!d||!$("#detail"))return;const s=states[d.id],h=hist[d.id]||[],r=last[d.id];
+ const X=i=>34+i/Math.max(h.length-1,1)*546,Y=v=>10+(1-v/100)*150;
+ let g="";[0,25,50,75,100].forEach(v=>g+=`<line x1="34" x2="580" y1="${Y(v)}" y2="${Y(v)}" stroke="#FFEDD5"/><text x="28" y="${Y(v)+3}" text-anchor="end">${v}</text>`);
+ const path=h.length>1?h.map((p,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+Y(p.trust).toFixed(1)).join(""):"";
+ const fv=r||{identity:s.identity,behavior:1-s.susp,reputation:s.reputation*Math.pow(.88,s.incident_weight),context:.85};
+ $("#detail").innerHTML=`<div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><div><h3>${esc(d.name)}</h3><div style="font-size:13px">${ip(d)} · slot ${d.slot} · ${d.exposure} exposure · step-up ${d.mfa?"supported":"not supported"} · criticality ${CATALOG[d.archetype].crit}</div></div>
+ <span class="chipa" style="background:${AC[s.action]};align-self:flex-start">${AN[s.action]}</span></div>
+ <svg viewBox="0 0 600 175" style="margin-top:12px">${g}${path?`<path d="${path}" fill="none" stroke="#EA580C" stroke-width="2.4" stroke-linejoin="round"/>`:`<text x="300" y="90" text-anchor="middle">Start monitoring to build history</text>`}</svg>
+ ${FAC.map(f=>`<div class="f"><div><span>${f[1]}</span><span>${Math.round(fv[f[0]]*100)}%</span></div><div class="bar"><i style="width:${fv[f[0]]*100}%;background:${f[2]}"></i></div></div>`).join("")}
+ <div class="row2"><button class="btn s" id="atk">Simulate attack</button><button class="btn o s" id="rst">Reset trust</button><button class="btn o s" id="rm">Remove device</button></div>
+ <div class="log" id="log">${log.slice(0,12).map(l=>`<div>${l}</div>`).join("")||"<div>Decisions and step-up challenges appear here.</div>"}</div>`;
+ $("#atk").onclick=()=>{attackLeft[d.id]=25;addLog(`${esc(d.name)}: attack campaign started`);if(!timer)toggle()};
+ $("#rst").onclick=async()=>{states[d.id]=newState(d);hist[d.id]=[];await flush(true);paintFleet();paintDetail()};
+ $("#rm").onclick=async()=>{if(!confirm(`Remove ${d.name} from your fleet?`))return;await API.removeDevice(d.id);devices=devices.filter(x=>x.id!==d.id);delete states[d.id];sel=devices[0]?.id||null;render()};
+}
+function addLog(t){log.unshift(`${new Date().toLocaleTimeString()} · ${t}`);if(log.length>40)log.pop()}
+
+function scan(){
+ const keys=Object.keys(CATALOG),n=3+rnd(3),found=[];
+ for(let i=0;i<n;i++){const a=pick(keys),c=CATALOG[a];found.push({name:`${c.label} ${10+rnd(90)}`,archetype:a,criticality:c.crit,exposure:c.exp,mfa:c.mfa,cert_age:20+rnd(320),mac:Array.from({length:6},()=>(rnd(256)).toString(16).padStart(2,"0")).join(":")})}
+ const el=document.createElement("div");el.className="modal";
+ el.innerHTML=`<div class="box"><h2>Network scan complete</h2><p style="margin:6px 0 10px">${n} new device${n>1?"s":""} found in zone 10.${user.zone}.0.0/24. Choose which to add; they are saved to your account permanently.</p>
+ ${found.map((f,i)=>`<label class="found"><input type="checkbox" checked data-i="${i}"><div><b>${esc(f.name)}</b><br><small style="font:500 11px var(--mono)">${f.mac} · ${esc(CATALOG[f.archetype].label)}</small></div></label>`).join("")}
+ <div class="row2"><button class="btn" id="add">Add to my fleet</button><button class="btn o" id="cx">Cancel</button></div></div>`;
+ document.body.appendChild(el);$("#cx").onclick=()=>el.remove();
+ $("#add").onclick=async()=>{const chosen=[...el.querySelectorAll("input:checked")].map(c=>found[+c.dataset.i]);if(!chosen.length){el.remove();return}
+  $("#add").disabled=true;const rows=await API.addDevices(chosen);el.remove();
+  rows.forEach(d=>{devices.push(d);states[d.id]=newState(d)});if(!sel)sel=rows[0].id;await flush(true);addLog(`${rows.length} device(s) added`);render()};
+}
+function toggle(){
+ if(timer){clearInterval(timer);timer=null;flush();render();return}
+ timer=setInterval(step,700);render();
+}
+function step(){
+ const hour=new Date().getHours();
+ devices.forEach(d=>{
+  const st=states[d.id],atk=(attackLeft[d.id]||0)>0;if(atk)attackLeft[d.id]--;
+  if(pend[d.id]!=null){st.identity=pend[d.id]?Math.min(priorOf(d),st.identity+.15):st.identity*.6;pend[d.id]=null}
+  const ev=pick(atk?ZT_EVENTS.attack:ZT_EVENTS.normal),r=scoreEvent(d,st,ev,net,hour),prev=st.action;
+  st.action=decide(st.trust,CATALOG[d.archetype].crit,net.threat);last[d.id]=r;
+  let note="";
+  if((st.action==="STEP_UP_VERIFICATION"||st.action==="RESTRICT")&&d.mfa&&st.events-(lastCh[d.id]??-99)>=6){
+   const ok=Math.random()<(atk?.25:.97);pend[d.id]=ok;lastCh[d.id]=st.events;note=ok?"challenge passed":"challenge failed";addLog(`${esc(d.name)}: step-up ${note}`)}
+  if(st.action!==prev)addLog(`${esc(d.name)}: ${AN[prev]} → ${AN[st.action]} (trust ${st.trust.toFixed(0)})`);
+  (hist[d.id]=hist[d.id]||[]).push({trust:st.trust,action:st.action});if(hist[d.id].length>300)hist[d.id].shift();
+  if(tick%4===0||st.action!==prev||note)buf.push({device_id:d.id,trust:+st.trust.toFixed(2),action:st.action,identity:+r.identity.toFixed(3),behavior:+r.behavior.toFixed(3),reputation:+r.reputation.toFixed(3),context:+r.context.toFixed(3),note});
+ });
+ tick++;if(tick%8===0)flush();
+ const stats=document.querySelectorAll(".stat b");paintFleet();paintDetail();
+ const n=devices.length;if(stats.length){stats[2].textContent=(devices.reduce((a,d)=>a+states[d.id].trust,0)/n).toFixed(0);stats[3].textContent=devices.filter(d=>states[d.id].action==="QUARANTINE").length}
+}
+async function flush(){
+ if(!devices.length)return;
+ try{
+  await API.saveStates(devices.map(d=>{const s=states[d.id];return {device_id:d.id,trust:s.trust,identity:s.identity,reputation:s.reputation,incident_weight:s.incident_weight,in_incident:s.in_incident,baseline_rpm:s.baseline_rpm,susp:s.susp,events:s.events,action:s.action}}));
+  await API.saveThreat(net.threat);const b=buf;buf=[];await API.addHistory(b);
+  savedAt=new Date().toLocaleTimeString();const el=$("#saved");if(el)el.textContent="Saved · "+savedAt;
+ }catch(e){console.error(e);const el=$("#saved");if(el)el.textContent="Save failed – retrying"}
+}
+document.addEventListener("visibilitychange",()=>{if(document.hidden)flush()});
+boot();
+</script></body></html>

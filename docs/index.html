@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adaptive Zero Trust Framework for IoT Intrusion Prevention</title>
+<meta name="description" content="Four-factor continuous trust scoring and adaptive policy enforcement for IoT networks.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23EA580C'/%3E%3Cpath d='M16 6l8 3v7c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V9z' fill='none' stroke='%23fff' stroke-width='2.4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--panel:#FFF7ED;--line:#FED7AA;--body:#7C2D12;--head:#C2410C;--accent:#EA580C;--soft:#FFEDD5;
+--allow:#15803D;--step:#1D4ED8;--restrict:#A16207;--quar:#BE123C;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--body);font:400 16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+h1,h2,h3{color:var(--head);line-height:1.15;margin:0;letter-spacing:-.02em}
+a{color:var(--head)}.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+nav{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-weight:700;color:var(--head);display:flex;gap:10px;align-items:center;text-decoration:none}
+.brand i{width:22px;height:22px;border-radius:6px;background:var(--accent);display:block}
+nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:14px;font-weight:500}
+nav ul a{text-decoration:none;color:var(--body)}nav ul a:hover{color:var(--accent)}
+.hero{padding:84px 0 56px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fff,var(--panel))}
+.eyebrow{font:500 12px var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:18px}
+.hero h1{font-size:clamp(34px,5.2vw,58px);max-width:860px;font-weight:700}
+.hero p.lead{font-size:19px;max-width:720px;margin:22px 0 0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.kpi b{display:block;font-size:38px;color:var(--accent);letter-spacing:-.03em;font-weight:700;line-height:1.1}
+.kpi span{display:block;font-size:13px;font-weight:500;line-height:1.4;margin-top:4px}
+section{padding:76px 0;border-bottom:1px solid var(--line)}
+section h2{font-size:clamp(26px,3.4vw,36px);margin-bottom:12px}
+.sub{max-width:700px;margin:0 0 36px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card .n{font:500 12px var(--mono);color:var(--accent)}.card h3{font-size:18px;margin:8px 0 8px}
+.card p{font-size:14px;margin:0 0 14px}.bar{height:6px;border-radius:3px;background:var(--soft);overflow:hidden}.bar i{display:block;height:100%;background:var(--accent)}
+.card small{font:500 12px var(--mono);display:block;margin-top:6px}
+.fuse{margin-top:20px;padding:18px 22px;border:1px dashed var(--accent);border-radius:12px;font:500 14px var(--mono);color:var(--head);overflow-x:auto;white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{border:1px solid var(--line);background:#fff;color:var(--body);padding:7px 14px;border-radius:999px;font:500 13px Inter,sans-serif;cursor:pointer}
+.chip:hover{border-color:var(--accent)}.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.explorer{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+.panel h3{font-size:15px;margin-bottom:4px}.meta{font-size:13px;margin:0 0 12px}
+svg{display:block;width:100%;height:auto}svg text{font:500 11px Inter,sans-serif;fill:#9A3412}
+.tog{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;margin-top:12px}.tog label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.sw{width:10px;height:10px;border-radius:2px;display:inline-block}
+.ctrl{display:flex;gap:12px;align-items:center;margin-top:12px}
+button.play{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:8px 16px;font:600 13px Inter,sans-serif;cursor:pointer}
+button.play:hover{background:var(--head)}input[type=range]{flex:1;accent-color:var(--accent)}
+.read .big{font-size:56px;font-weight:700;color:var(--accent);letter-spacing:-.04em;line-height:1}
+.read .t{font:500 12px var(--mono);margin-bottom:10px}
+.act{display:inline-block;color:#fff;font:600 12px var(--mono);padding:4px 10px;border-radius:6px;margin:10px 0 16px}
+.f{margin:11px 0}.f div{display:flex;justify-content:space-between;font-size:13px;font-weight:500}.f .bar{margin-top:4px}
+.note{font-size:13px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font:600 12px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--head);padding:10px 12px;border-bottom:2px solid var(--line)}
+td{padding:11px 12px;border-bottom:1px solid var(--soft)}tr.row{cursor:pointer}tr.row:hover td{background:var(--panel)}
+.tag{font:600 11px var(--mono);color:#fff;padding:3px 8px;border-radius:5px}
+.two{display:grid;grid-template-columns:1.3fr 1fr;gap:20px}.imp{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;font-size:13px;margin:7px 0}
+.cm{display:grid;grid-template-columns:auto 1fr 1fr;gap:6px;margin-top:14px;text-align:center;font-size:13px}.cm div{padding:14px 6px;border-radius:8px;background:var(--panel)}.cm .h{background:none;font-weight:600}
+.cm .ok{background:var(--soft);font-weight:700;color:var(--head)}
+.method ul{padding-left:20px;max-width:760px}.method li{margin:8px 0}
+footer{padding:34px 0;font-size:13px}
+@media(max-width:900px){.kpis,.grid4{grid-template-columns:1fr 1fr}.explorer,.two{grid-template-columns:1fr}nav ul{display:none}}
+@media(max-width:520px){.kpis,.grid4{grid-template-columns:1fr}.hero{padding-top:56px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="#top"><i></i>ZT-IoT</a>
+<ul><li><a href="#model">Trust model</a></li><li><a href="#fleet">Live fleet</a></li><li><a href="#results">Results</a></li><li><a href="#method">Method</a></li><li><a href="app.html" style="background:#EA580C;color:#fff;padding:8px 16px;border-radius:8px;font-weight:600">Sign in · My fleet</a></li></ul></div></nav>
+<header class="hero" id="top"><div class="wrap">
+<div class="eyebrow">Final-year project · Version 3</div>
+<h1>Adaptive Zero Trust for Intelligent Intrusion Prevention in IoT Networks</h1>
+<p class="lead">Every device is re-scored continuously on four independent factors, and access narrows automatically as trust falls — detection that actually prevents.</p>
+<p style="margin:26px 0 0"><a href="app.html" style="display:inline-block;background:#EA580C;color:#fff;text-decoration:none;font-weight:600;padding:13px 26px;border-radius:10px">Open my fleet →</a></p><div class="kpis" id="kpis"></div></div></header>
+
+<section id="model"><div class="wrap"><h2>One trust score, four independent factors</h2>
+<p class="sub">No single signal decides. A device must look right on identity, behavior, history and context at the same time.</p>
+<div class="grid4" id="factors"></div>
+<div class="fuse">trust = 100 × identity<sup>0.18</sup> × behavior<sup>0.47</sup> × reputation<sup>0.17</sup> × (1 − context risk)<sup>0.18</sup></div>
+<p class="sub" style="margin-top:16px">A weighted geometric mean means one failing factor drags trust down instead of being averaged away. Trust then falls fast and recovers slowly, and more critical devices are penalised harder.</p></div></section>
+
+<section id="fleet"><div class="wrap"><h2>Live fleet explorer</h2>
+<p class="sub">Pick a device and press play. The shaded band is a scripted attack campaign sampled from held-out intrusion traffic.</p>
+<div class="chips" id="chips"></div>
+<div class="explorer"><div class="panel"><h3 id="ctitle"></h3><p class="meta" id="cmeta"></p>
+<svg id="chart" viewBox="0 0 760 330" role="img" aria-label="Trust score over time"></svg>
+<div class="tog" id="tog"></div>
+<div class="ctrl"><button class="play" id="play">▶ Play</button><input type="range" id="scrub" min="0" value="0"></div></div>
+<div class="panel read" id="read"></div></div>
+<h3 style="margin:44px 0 12px">Fleet status</h3><div class="panel" style="padding:8px 12px"><table id="fleettbl"></table></div></div></section>
+
+<section id="results"><div class="wrap"><h2>Detection engine results</h2>
+<p class="sub">Held-out NSL-KDD test split, including attack types never seen in training.</p>
+<div class="two"><div class="panel"><h3>Model comparison</h3><table id="models"></table>
+<div class="cm" id="cm"></div></div><div class="panel"><h3>Top features (RandomForest)</h3><div id="imps" style="margin-top:12px"></div></div></div></div></section>
+
+<section id="method" class="method"><div class="wrap"><h2>Method &amp; data transparency</h2>
+<ul>
+<li><b>Data.</b> NSL-KDD, a public network-intrusion benchmark, replayed through a simulated fleet of 12 IoT devices. It is not a native IoT packet capture.</li>
+<li><b>Synthetic telemetry.</b> Request rate and payload size are generated per device type and perturbed by attack family. They are synthetic, not captured packets.</li>
+<li><b>Identity.</b> Credential age, authentication-failure and privilege signals, traffic fingerprint against the device type, and step-up challenge results. Challenge outcomes are part of the simulated environment; the engine never sees ground-truth labels.</li>
+<li><b>Swap-in.</b> The trust and policy engines are dataset-agnostic; N-BaIoT, TON_IoT or CICIoT2023 can replace the loader.</li></ul></div></section>
+<footer><div class="wrap">Adaptive Zero Trust Framework for IoT · Final-year project prototype · Policy tiers: Allow → Step-up verification → Restrict → Quarantine</div></footer>
+
+<script src="data.js"></script>
+<script>
+const D=window.ZT_DATA,$=s=>document.querySelector(s),N=D.times.length;
+const ACT=["ALLOW","STEP-UP","RESTRICT","QUARANTINE"],AC=["#15803D","#1D4ED8","#A16207","#BE123C"];
+const FAC=[["identity","Identity confidence","#7C3AED"],["behavior","Behavior / anomaly","#0D9488"],["reputation","Historical reputation","#64748B"],["context","Contextual risk (plotted as 100 − risk)","#A16207"]];
+const S=D.summary,M=D.model.ensemble;
+$("#kpis").innerHTML=[[(M.accuracy*100).toFixed(1)+"%","Ensemble detection accuracy"],[M.roc_auc.toFixed(3),"ROC-AUC"],[S.mean_own_events_to_quarantine_after_first_attack,"Malicious events before quarantine"],[(S.benign_traffic_over_restricted_rate*100).toFixed(1)+"%","Clean traffic wrongly restricted"]].map(k=>`<div class="kpi"><b>${k[0]}</b><span>${k[1]}</span></div>`).join("");
+const FD={identity:["Is this device who it claims to be? Credential age, authentication-failure and privilege signals, traffic fingerprint against its device type, and step-up challenge results."],behavior:["Is it acting normally right now? Classifier probability, anomaly score, and deviation from the device’s own learned request-rate baseline."],reputation:["What is its track record? A slow-moving record of past conduct, reduced by earlier incidents and rebuilt only through sustained clean behavior."],context:["How risky is the situation? Time of day, service and protocol risk, network exposure, and the network-wide threat level."]};
+$("#factors").innerHTML=FAC.map((f,i)=>{const w=D.weights[f[0]];return `<div class="card"><div class="n">0${i+1}</div><h3>${f[1].replace(/ \(plotted.*\)/,"")}</h3><p>${FD[f[0]][0]}</p><div class="bar"><i style="width:${w*100/0.5*100/100}%"></i></div><small>weight ${Math.round(w*100)}%</small></div>`}).join("");
+let di=Math.max(0,D.devices.findIndex(d=>d.id==="hub-01")),r=0,timer=null;const on={identity:false,behavior:false,reputation:false,context:false};
+const dev=()=>D.devices[di];
+$("#chips").innerHTML=D.devices.map((d,i)=>`<button class="chip" data-i="${i}">${d.id}</button>`).join("");
+$("#tog").innerHTML=FAC.map(f=>`<label><input type="checkbox" data-k="${f[0]}" ${on[f[0]]?"checked":""}><span class="sw" style="background:${f[2]}"></span>${f[1]}</label>`).join("");
+$("#scrub").max=N-1;
+function pick(i,keep){di=i;stop();if(!keep)r=Math.min(N-1,dev().campaign[0]+8);$("#scrub").value=r;draw()}
+function stop(){if(timer){clearInterval(timer);timer=null;$("#play").textContent="▶ Play"}}
+$("#chips").onclick=e=>{if(e.target.dataset.i!==undefined)pick(+e.target.dataset.i)};
+$("#tog").onchange=e=>{on[e.target.dataset.k]=e.target.checked;draw()};
+$("#scrub").oninput=e=>{stop();r=+e.target.value;draw()};
+$("#play").onclick=()=>{if(timer){stop();return}if(r>=N-3)r=0;$("#play").textContent="❚❚ Pause";timer=setInterval(()=>{r=Math.min(N-1,r+2);$("#scrub").value=r;draw();if(r>=N-1)stop()},45)};
+const X=i=>46+i/(N-1)*694,Y=v=>14+(1-v/100)*236;
+const path=a=>a.map((v,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)).join("");
+$("#chart").onclick=e=>{const b=e.currentTarget.getBoundingClientRect();const x=(e.clientX-b.left)/b.width*760;stop();r=Math.max(0,Math.min(N-1,Math.round((x-46)/694*(N-1))));$("#scrub").value=r;draw()};
+function draw(){const d=dev();document.querySelectorAll(".chip").forEach((c,i)=>c.classList.toggle("on",i===di));
+$("#ctitle").textContent=d.id+" · "+d.type.replace(/_/g," ");
+$("#cmeta").textContent=`Criticality ${d.criticality.toFixed(1)} · ${d.exposure} exposure · step-up ${d.mfa?"supported":"not supported"} · campaign: ${d.cats.join(", ")}`;
+let s="";[0,25,50,75,100].forEach(v=>s+=`<line x1="46" x2="740" y1="${Y(v)}" y2="${Y(v)}" stroke="#FFEDD5"/><text x="38" y="${Y(v)+4}" text-anchor="end">${v}</text>`);
+s+=`<rect x="${X(d.campaign[0])}" y="14" width="${X(d.campaign[1])-X(d.campaign[0])}" height="236" fill="#FFEDD5" opacity=".85"/><text x="${X(d.campaign[0])+6}" y="28" fill="#C2410C">attack campaign</text>`;
+FAC.forEach(f=>{if(on[f[0]])s+=`<path d="${path(d[f[0]].map(v=>v*100))}" fill="none" stroke="${f[2]}" stroke-width="1.3" opacity=".75"/>`});
+s+=`<path d="${path(d.trust)}" fill="none" stroke="#EA580C" stroke-width="2.6" stroke-linejoin="round"/>`;
+let a=0;for(let i=1;i<=N;i++){if(i===N||d.action[i]!==d.action[a]){s+=`<rect x="${X(a)}" y="262" width="${Math.max(1,X(Math.min(i,N-1))-X(a))}" height="14" fill="${AC[d.action[a]]}"/>`;a=i}}
+s+=`<text x="38" y="273" text-anchor="end">action</text>`;
+for(let i=0;i<5;i++){const k=Math.round(i*(N-1)/4);s+=`<text x="${X(k)}" y="308" text-anchor="${i===4?"end":"middle"}">${D.times[k].slice(5,10)} ${D.times[k].slice(11)}</text>`}
+s+=`<line x1="${X(r)}" x2="${X(r)}" y1="14" y2="276" stroke="#7C2D12" stroke-dasharray="3 3"/><circle cx="${X(r)}" cy="${Y(d.trust[r])}" r="5" fill="#fff" stroke="#EA580C" stroke-width="2.6"/>`;
+$("#chart").innerHTML=s;
+const ch=d.challenge[r];
+$("#read").innerHTML=`<div class="t">${D.times[r].replace("T"," ")} · round ${r+1}/${N}</div><div class="big">${d.trust[r].toFixed(1)}</div><div style="font-size:13px;font-weight:500">trust score</div>
+<span class="act" style="background:${AC[d.action[r]]}">${ACT[d.action[r]]}</span>`+FAC.map(f=>{const risk=f[0]==="context",v=risk?1-d.context[r]:d[f[0]][r];const nm=f[1].replace(/ \(plotted.*\)/,"");return `<div class="f"><div><span>${nm}${risk?" <small>(lower is better)</small>":""}</span><span>${Math.round(v*100)}%</span></div><div class="bar"><i style="width:${v*100}%;background:${f[2]}"></i></div></div>`}).join("")+(ch?`<div class="note">Step-up challenge issued: <b>${ch==="pass"?"passed":"failed"}</b></div>`:`<div class="note">${d.campaign[0]<=r&&r<=d.campaign[1]?"Scripted attack in progress.":"Normal operation."}</div>`)}
+$("#fleettbl").innerHTML="<tr><th>Device</th><th>Type</th><th>Criticality</th><th>Exposure</th><th>Trust</th><th>Status</th></tr>"+D.devices.map((d,i)=>`<tr class="row" data-i="${i}"><td><b>${d.id}</b></td><td>${d.type.replace(/_/g," ")}</td><td>${d.criticality.toFixed(1)}</td><td>${d.exposure}</td><td><b>${d.trust[N-1].toFixed(1)}</b></td><td><span class="tag" style="background:${AC[d.action[N-1]]}">${ACT[d.action[N-1]]}</span></td></tr>`).join("");
+$("#fleettbl").onclick=e=>{const t=e.target.closest("tr.row");if(t){pick(+t.dataset.i);location.hash="fleet"}};
+const NM={random_forest:"RandomForest",hist_gradient_boosting:"HistGradientBoosting",ensemble:"Ensemble (deployed)"};
+$("#models").innerHTML="<tr><th>Model</th><th>Accuracy</th><th>F1</th><th>ROC-AUC</th></tr>"+Object.entries(D.model).map(([k,m])=>`<tr><td>${NM[k]}</td><td>${(m.accuracy*100).toFixed(1)}%</td><td>${m.f1.toFixed(3)}</td><td>${m.roc_auc.toFixed(3)}</td></tr>`).join("");
+const c=D.confusion;$("#cm").innerHTML=`<div class="h"></div><div class="h">Predicted normal</div><div class="h">Predicted attack</div><div class="h">Actual normal</div><div class="ok">${c[0][0]}</div><div>${c[0][1]}</div><div class="h">Actual attack</div><div>${c[1][0]}</div><div class="ok">${c[1][1]}</div>`;
+const mx=Math.max(...D.importances.map(i=>i.importance));
+$("#imps").innerHTML=D.importances.map(i=>`<div class="imp"><span>${i.feature}</span><div class="bar"><i style="width:${i.importance/mx*100}%"></i></div><span>${(i.importance*100).toFixed(1)}%</span></div>`).join("");
+pick(di);
+</script>
+</body>
+</html>

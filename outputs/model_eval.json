@@ -1,125 +1,125 @@
 {
   "model_comparison": {
     "random_forest": {
-      "accuracy": 0.8799680624556423,
-      "precision": 0.9814585908529048,
-      "recall": 0.8043325800670147,
-      "f1": 0.8841113490364025,
-      "roc_auc": 0.9865721590383817
+      "accuracy": 0.8826295244854506,
+      "precision": 0.9801112263172778,
+      "recall": 0.8102548118132938,
+      "f1": 0.8871256718710008,
+      "roc_auc": 0.9862244053809661
     },
     "hist_gradient_boosting": {
-      "accuracy": 0.917805180979418,
-      "precision": 0.996742671009772,
-      "recall": 0.8584119068027741,
-      "f1": 0.9224199288256227,
-      "roc_auc": 0.9903408858887909
+      "accuracy": 0.9183818310858765,
+      "precision": 0.9977361224304989,
+      "recall": 0.8585677550066235,
+      "f1": 0.9229351650192662,
+      "roc_auc": 0.990256999722431
     },
     "ensemble": {
-      "accuracy": 0.9142565649396736,
-      "precision": 0.9924995481655522,
-      "recall": 0.8558404114392582,
-      "f1": 0.9191179547261392,
-      "roc_auc": 0.9916335906497753
+      "accuracy": 0.9156760113555713,
+      "precision": 0.9964577656675749,
+      "recall": 0.8549053222161614,
+      "f1": 0.9202701002390639,
+      "roc_auc": 0.9923327931606664
     }
   },
   "classification_report": {
     "0": {
-      "precision": 0.8388220944415403,
-      "recall": 0.9914529914529915,
-      "f1-score": 0.9087734201708434,
+      "precision": 0.8385642448413386,
+      "recall": 0.9959839357429718,
+      "f1-score": 0.9105201223817369,
       "support": 9711.0
     },
     "1": {
-      "precision": 0.9924995481655522,
-      "recall": 0.8558404114392582,
-      "f1-score": 0.9191179547261392,
+      "precision": 0.9964577656675749,
+      "recall": 0.8549053222161614,
+      "f1-score": 0.9202701002390639,
       "support": 12833.0
     },
-    "accuracy": 0.9142565649396736,
+    "accuracy": 0.9156760113555713,
     "macro avg": {
-      "precision": 0.9156608213035462,
-      "recall": 0.9236467014461248,
-      "f1-score": 0.9139456874484913,
+      "precision": 0.9175110052544568,
+      "recall": 0.9254446289795666,
+      "f1-score": 0.9153951113104004,
       "support": 22544.0
     },
     "weighted avg": {
-      "precision": 0.926301812488038,
-      "recall": 0.9142565649396736,
-      "f1-score": 0.9146619675425659,
+      "precision": 0.9284439269191903,
+      "recall": 0.9156760113555713,
+      "f1-score": 0.9160702228893255,
       "support": 22544.0
     }
   },
   "confusion_matrix": [
     [
-      9628,
-      83
+      9672,
+      39
     ],
     [
-      1850,
-      10983
+      1862,
+      10971
     ]
   ],
-  "roc_auc": 0.9916335906497753,
+  "roc_auc": 0.9923327931606664,
   "feature_importances": [
     {
       "feature": "src_bytes",
-      "importance": 0.1789
+      "importance": 0.1704
     },
     {
       "feature": "requests_per_min",
-      "importance": 0.1638
+      "importance": 0.1587
     },
     {
       "feature": "dst_bytes",
-      "importance": 0.0895
+      "importance": 0.0882
     },
     {
       "feature": "flag",
-      "importance": 0.0702
+      "importance": 0.0739
     },
     {
       "feature": "dst_host_srv_count",
-      "importance": 0.0519
+      "importance": 0.0562
     },
     {
       "feature": "same_srv_rate",
-      "importance": 0.0508
+      "importance": 0.0512
     },
     {
       "feature": "avg_payload_bytes",
-      "importance": 0.0498
+      "importance": 0.0499
     },
     {
       "feature": "dst_host_same_srv_rate",
-      "importance": 0.0385
+      "importance": 0.0393
     },
     {
       "feature": "logged_in",
-      "importance": 0.0356
+      "importance": 0.0373
     },
     {
       "feature": "diff_srv_rate",
-      "importance": 0.0356
+      "importance": 0.0362
     },
     {
       "feature": "count",
-      "importance": 0.0304
+      "importance": 0.0307
     },
     {
-      "feature": "dst_host_same_src_port_rate",
-      "importance": 0.0223
+      "feature": "protocol_type",
+      "importance": 0.0231
     },
     {
       "feature": "dst_host_srv_serror_rate",
-      "importance": 0.0214
-    },
-    {
-      "feature": "dst_host_diff_srv_rate",
-      "importance": 0.0197
+      "importance": 0.0219
     },
     {
       "feature": "service",
-      "importance": 0.0196
+      "importance": 0.0217
+    },
+    {
+      "feature": "dst_host_srv_diff_host_rate",
+      "importance": 0.0193
     }
   ]
 }

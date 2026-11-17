@@ -65,6 +65,17 @@ DEVICE_FLEET = [
     {"device_id": "tv-01", "archetype": "smart_tv", "criticality": 0.4, "rpm_base": 8, "payload_base": 400},
     {"device_id": "sensor-01", "archetype": "motion_sensor", "criticality": 0.5, "rpm_base": 3, "payload_base": 60},
 ]
+# Device registry (v3): credential age, step-up capability, network exposure.
+_REGISTRY = {
+    "cam-01": (120, True, "internet"), "cam-02": (300, True, "internet"),
+    "doorbell-01": (60, True, "internet"), "thermostat-01": (200, False, "local"),
+    "lock-01": (30, True, "local"), "babymonitor-01": (90, True, "internet"),
+    "plug-01": (340, False, "local"), "plug-02": (330, False, "local"),
+    "speaker-01": (150, True, "internet"), "hub-01": (20, True, "internet"),
+    "tv-01": (250, True, "internet"), "sensor-01": (280, False, "local"),
+}
+for _d in DEVICE_FLEET:
+    _d["cert_age_days"], _d["mfa_capable"], _d["exposure"] = _REGISTRY[_d["device_id"]]
 DEVICE_BY_ID = {d["device_id"]: d for d in DEVICE_FLEET}
 
 
