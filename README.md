@@ -167,7 +167,7 @@ you want to regenerate them (e.g. after changing the model or dataset).
 - No real network enforcement is wired up — a natural next step is
   integrating with an SDN controller or `iptables`/`nftables` to actually
   enforce RESTRICT/QUARANTINE on real traffic.
--
+
 
 ## License
 
